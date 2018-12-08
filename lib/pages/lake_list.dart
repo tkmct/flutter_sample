@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './lake_detail.dart';
 
 const Lakes = [
   'LAKE1',
@@ -20,16 +21,19 @@ const Lakes = [
 ];
 
 class LakeList extends StatelessWidget {
-  Widget listItem(String name) {
-    return Container(
-      padding: const EdgeInsets.all(12.0),
-      decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
-      child: Text(
-        name,
-        style: TextStyle(color: Colors.black, fontSize: 16.0),
-      ),
-    );
+  Widget listItem(String name, navigate) {
+    return GestureDetector(
+        onTap: navigate,
+        child: Container(
+          padding: const EdgeInsets.all(12.0),
+          decoration: const BoxDecoration(
+              border:
+                  Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
+          child: Text(
+            name,
+            style: TextStyle(color: Colors.black, fontSize: 16.0),
+          ),
+        ));
   }
 
   @override
@@ -39,7 +43,11 @@ class LakeList extends StatelessWidget {
         body: ListView(
           shrinkWrap: true,
           padding: const EdgeInsets.all(8.0),
-          children: Lakes.map((name) => listItem(name)).toList(),
+          children: Lakes.map((name) => listItem(
+                  name,
+                  () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LakeDetail()))))
+              .toList(),
         ));
   }
 }
